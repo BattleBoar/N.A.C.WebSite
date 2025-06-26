@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>N.A.C.</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #8a2be2; /* Фиолетовый акцент */
+            --primary-dark: #6a0dad;
+            --primary-light: #a45deb;
+            --dark: #0a0a0a;
+            --darker: #050505;
+            --light: #f5f5f5;
+            --gray: #1a1a1a;
+            --accent: #0066cc;
+            --glow: 0 0 15px rgba(138, 43, 226, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, var(--darker), #1a0a2e);
+            color: var(--light);
+            overflow-x: hidden;
+            line-height: 1.6;
+            min-height: 100vh;
+            background-attachment: fixed;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Header Styles */
+        header {
+            background: rgba(10, 10, 10, 0.95);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(138, 43, 226, 0.2);
+            backdrop-filter: blur(5px);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-text {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--light);
+            letter-spacing: 2px;
+        }
+
+        .logo-text span {
+            color: var(--primary);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 35px;
+        }
+
+        .nav-menu a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 5px 0;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .nav-menu a:hover {
+            color: var(--primary);
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--light);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(rgba(5, 5, 5, 0.9), rgba(5, 5, 5, 0.7));
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(138, 43, 226, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(138, 43, 226, 0.1) 0%, transparent 40%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: var(--light);
+            line-height: 1.2;
+            font-weight: 800;
+        }
+
+        .hero h1 span {
+            color: var(--primary);
+            display: block;
+            font-size: 4rem;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            max-width: 600px;
+            color: #ccc;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 35px;
+            background: transparent;
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 0;
+            transition: all 0.3s ease;
+            border: 2px solid var(--primary);
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--primary);
+            transition: all 0.4s ease;
+            z-index: -1;
+        }
+
+        .btn:hover {
+            color: var(--light);
+            transform: translateY(-3px);
+        }
+
+        .btn:hover::before {
+            left: 0;
+        }
+
+        /* About Section */
+        .section {
+            padding: 120px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 70px;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--light);
+            position: relative;
+            display: inline-block;
+            padding-bottom: 15px;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--primary);
+        }
+
+        .about-content {
+            display: flex;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            color: var(--light);
+        }
+
+        .about-text p {
+            margin-bottom: 20px;
+            color: #ccc;
+            line-height: 1.8;
+        }
+
+        .highlight {
+            color: var(--primary);
+            font-weight: 500;
+            border-left: 3px solid var(--primary);
+            padding-left: 15px;
+            margin: 25px 0;
+        }
+
+        .about-image {
+            flex: 1;
+            position: relative;
+        }
+
+        .about-image::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            width: 100%;
+            height: 100%;
+            border: 2px solid var(--primary);
+            z-index: -1;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Games Section */
+        .games {
+            background: rgba(10, 10, 10, 0.7);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(138, 43, 226, 0.1);
+            border-bottom: 1px solid rgba(138, 43, 226, 0.1);
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+
+        .game-card {
+            background: rgba(26, 26, 26, 0.5);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(138, 43, 226, 0.1);
+        }
+
+        .game-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: var(--glow);
+        }
+
+        .game-image {
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .game-image::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 60%;
+            background: linear-gradient(transparent, rgba(10, 10, 10, 0.9));
+        }
+
+        .game-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .game-card:hover .game-image img {
+            transform: scale(1.05);
+        }
+
+        .game-content {
+            padding: 30px;
+        }
+
+        .game-title {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: var(--light);
+        }
+
+        .game-title span {
+            color: var(--primary);
+        }
+
+        .game-desc {
+            margin-bottom: 25px;
+            color: #aaa;
+        }
+
+        .game-info {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #aaa;
+        }
+
+        .info-item i {
+            color: var(--primary);
+        }
+
+        /* Engine Section */
+        .engine {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .engine::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(138, 43, 226, 0.05) 0%, transparent 30%),
+                radial-gradient(circle at 90% 80%, rgba(138, 43, 226, 0.05) 0%, transparent 30%);
+        }
+
+        .engine-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .engine-content h2 {
+            text-align: center;
+            color: var(--light);
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .engine-content h2 span {
+            color: var(--primary);
+        }
+
+        .engine-content p {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 50px;
+            color: #ccc;
+            font-size: 1.1rem;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .feature {
+            background: rgba(26, 26, 26, 0.5);
+            padding: 40px 30px;
+            border: 1px solid rgba(138, 43, 226, 0.1);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .feature:hover {
+            border-color: var(--primary);
+            box-shadow: var(--glow);
+            transform: translateY(-5px);
+        }
+
+        .feature i {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 25px;
+        }
+
+        .feature h3 {
+            margin-bottom: 15px;
+            color: var(--light);
+            font-size: 1.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--darker);
+            padding: 80px 0 30px;
+            border-top: 1px solid rgba(138, 43, 226, 0.1);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 50px;
+            margin-bottom: 50px;
+        }
+
+        .footer-logo {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
+            color: var(--light);
+            margin-bottom: 20px;
+            font-weight: 800;
+        }
+
+        .footer-logo span {
+            color: var(--primary);
+        }
+
+        .footer-about p {
+            margin-bottom: 25px;
+            color: #aaa;
+            line-height: 1.8;
+        }
+
+        .footer-links h3, .footer-contact h3 {
+            color: var(--light);
+            margin-bottom: 25px;
+            font-size: 1.3rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-links h3::after, .footer-contact h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--primary);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: #aaa;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: block;
+            padding: 5px 0;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+            padding-left: 5px;
+        }
+
+        .contact-item {
+            display: flex;
+            margin-bottom: 20px;
+            color: #aaa;
+        }
+
+        .contact-item i {
+            color: var(--primary);
+            margin-right: 15px;
+            min-width: 20px;
+            font-size: 1.1rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(138, 43, 226, 0.1);
+            color: var(--light);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+        }
+
+        .social-links a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(138, 43, 226, 0.1);
+            color: #777;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .hero h1 span {
+                font-size: 3.5rem;
+            }
+            
+            .about-content {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-toggle {
+                display: block;
+            }
+            
+            .nav-menu {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                flex-direction: column;
+                background: var(--dark);
+                width: 100%;
+                height: calc(100vh - 80px);
+                padding: 40px 20px;
+                transition: all 0.4s ease;
+                align-items: center;
+            }
+            
+            .nav-menu.active {
+                left: 0;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero h1 span {
+                font-size: 3rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero h1 span {
+                font-size: 2.5rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <div class="logo-text">N<span>A</span>C</div>
+            </div>
+            <button class="mobile-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-menu">
+                <li><a href="#home">Главная</a></li>
+                <li><a href="#about">О нас</a></li>
+                <li><a href="#games">Проекты</a></li>
+                <li><a href="#engine">Технологии</a></li>
+                <li><a href="#contact">Контакты</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container hero-content">
+            <h1><span></span>В КАЖДОЙ ДЕТАЛИ</h1>
+            <p>N.A.C., создающая уникальные проекты на собственном движке ALOGAM. Идут в перед к совершенству</p>
+            <a href="#games" class="btn">Наши проекты</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section" id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>О студии</h2>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Создаём игры будущего</h3>
+                    <p>N.A.C. — российская студия, основанная в 2024 году группой интузиастов.</p>
+                    <p>Мы делаем игры,которые захватывают игроков с первой минуты.</p>
+                    <p>Мы гордимся тем, что разрабатываем все наши проекты на собственном движке ALOGAM, что позволяет нам полностью контролировать процесс разработки и реализовывать СВОИ идеи.</p>
+                </div>
+                <div class="about-image">
+                    <img src="Pichur.jpg">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Games Section -->
+    <section class="section games" id="games">
+        <div class="container">
+            <div class="section-title">
+                <h2>Наши проекты</h2>
+            </div>
+            <div class="games-grid">
+                <div class="game-card">
+                    <div class="game-image">
+                        <img src="Pichury.jpg">
+                    </div>
+                    <div class="game-content">
+                        <h3 class="game-title"><span>Project-45</span></h3>
+                        <p class="game-desc">Сюжетный и мультиплеерный FPS шутер с уникальной физикой. Глубокий сеттинг, динамичные бои и сложный моральный сюжет.</p>
+                        <div class="game-info">
+                            <div class="info-item">
+                                <i class="fas fa-calendar"></i>
+                                <span>Q3 2026</span>
+                            </div>
+                            <div class="info-item">
+                                <i class="fas fa-gamepad"></i>
+                                <span>Windows, Linux</span>
+                            </div>
+                        </div>
+                        <a href="#" class="btn">Подробнее</a>
+                    </div>
+              </div>
+        </div>
+    </section>
+
+    <!-- Engine Section -->
+    <section class="section engine" id="engine">
+        <div class="container">
+            <div class="engine-content">
+                <h2>ALOGAM <span>Engine</span></h2>
+                <p>Собственный игровой движок, разработанный для создания инновационных проектов. Мощь, ALOGAM — основа наших технологий.</p>
+                
+                <div class="features">
+                    <div class="feature">
+                        <i class="fas fa-microchip"></i>
+                        <h3>Высокая производительность</h3>
+                        <p>Оптимизированная архитектура для стабильной работы</p>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-cogs"></i>
+                        <h3>Модульная система</h3>
+                        <p>Гибкая архитектура для адаптации под любой проект</p>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-wind"></i>
+                        <h3>Динамические системы</h3>
+                        <p>Продвинутые системы физики и динамического освещения</p>
+                    </div>
+                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">N<span>A</span>C</div>
+                    <p>Российская инди-студия, разрабатывающая инновационные игры на собственном движке ALOGAM. Мы создаём игры, которые задают новые стандарты в индустрии.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-vk"></i></a>
+                        <a href="t.me/NACTGoffical"><i class="fab fa-telegram"></i></a>
+                        <a href="#"><i class="fab fa-discord"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h3>Навигация</h3>
+                    <ul>
+                        <li><a href="#home">Главная</a></li>
+                        <li><a href="#about">О студии</a></li>
+                        <li><a href="#games">Проекты</a></li>
+                        <li><a href="#engine">Технологии</a></li>
+                        <li><a href="#contact">Контакты</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h3>Контакты</h3>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Уфа, ул. Цурюпа</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>battleboardaniil@gmail.com</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>+7 (937) 858-11-07</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-file-contract"></i>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; N.A.C. . Все права защищены. Любое использование материалов без письменного разрешения запрещено.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileToggle = document.querySelector('.mobile-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        mobileToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            mobileToggle.querySelector('i').classList.toggle('fa-bars');
+            mobileToggle.querySelector('i').classList.toggle('fa-times');
+        });
+        
+        // Close menu when clicking on a link
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                mobileToggle.querySelector('i').classList.add('fa-bars');
+                mobileToggle.querySelector('i').classList.remove('fa-times');
+            });
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.padding = '10px 0';
+                header.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.3)';
+            } else {
+                header.style.padding = '15px 0';
+                header.style.boxShadow = 'none';
+            }
+        });
+
+        // Parallax effect
+        document.addEventListener('mousemove', (e) => {
+            const hero = document.querySelector('.hero');
+            const x = (window.innerWidth - e.pageX * 2) / 100;
+            const y = (window.innerHeight - e.pageY * 2) / 100;
+            hero.style.backgroundPosition = `${x}px ${y}px`;
+        });
+    </script>
+</body>
+</html>
